@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import React from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-import { getItemArray, getSubtotal } from '../reducers';
-import { formatPriceForHumans } from '../helpers';
+import { getItemArray, getSubtotal } from "../reducers";
+import { formatPriceForHumans } from "../helpers";
 
-import CartItem from './CartItem';
-import Button from './Button';
+import CartItem from "./CartItem";
+import Button from "./Button";
 
 const Cart = () => {
   const items = useSelector(getItemArray);
@@ -17,7 +17,7 @@ const Cart = () => {
       <Top>
         <Title>Your Cart</Title>
         <Subtitle>
-          {items.length} {items.length === 1 ? 'Item' : 'Items'}
+          {items.length} {items.length === 1 ? "Item" : "Items"}
         </Subtitle>
 
         <ItemList>
