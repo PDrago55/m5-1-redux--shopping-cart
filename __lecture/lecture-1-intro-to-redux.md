@@ -153,7 +153,9 @@ Our state shape:
 */
 
 const FridgeContents = () => {
-  const fridgeItems = /* TODO */
+  const fridgeItems = useSelector((state) => {
+    return state.fridge
+  })
 
   return (
     <div>
@@ -197,7 +199,10 @@ const App = () => {
   // We're going to watch OUR favourite movie,
   // in our BOYFRIEND's favourite genre.
   // (Terror at Jarry Park)
-  const movie = /* TODO */
+  const movie = useSelector((state) => {
+    const genre = state.boyrFriendFavouriteGenre;
+    return myFavouriteMovie[genre];
+  })
 
   return (
     <div>
@@ -226,11 +231,14 @@ Our state shape:
 const UserProfile = () => {
   // `streetAddress` should be formatted as:
   // "129 W. 81st St, Apartment 5A"
-  const streetAddress = /* TODO */
+  const streetAddress = useSelector((state) => {
+    const newStreet = `${state.adress.line1}, ${state.address.line2}`
+    return 
+  })
 
   return (
     <div>
-      You live at {address}.
+      You live at {streetAddress}.
     </div>
   );
 };
@@ -266,8 +274,10 @@ Our state shape:
 */
 
 const OnlineUsers = () => {
-  const myStatus = /* TODO */
-  const onlineUsers = /* TODO */
+  const myStatus = useSelector((state) => state.myStatus)
+  const onlineUsers = useSelector((state) => {
+    return state.user.filter(user => user.online)
+  })
 
   return onlineUsers.map(user => (
     <div key={user.name}>
@@ -362,20 +372,20 @@ Wire in the action and dispatch it.
 ---
 
 ```js
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { pokeUser } from '../actions';
 
 const OnlineUsers = () => {
   // TODO: Something missing here...
-
+  const dispatch = useDispatch()
   const onlineUsers = useSelector((state) => {
     return state.users.filter((user) => user.online);
   });
 
   return onlineUsers.map((user) => (
     <div key={user.name}>
-      <button onClick={/* TODO */}>Message {user.name}</button>
+      <button onClick={dispatch(pokeUser(user))}>Message {user.name}</button>
     </div>
   ));
 };
@@ -395,7 +405,7 @@ const FridgeForm = () => {
   return (
     <form
       onSubmit={() => {
-        /* TODO */
+        dispatch(addItemToFridge(value))
       }}
     >
       <input type='text' onChange={(ev) => setValue(ev.target.value)} />
